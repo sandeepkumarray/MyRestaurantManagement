@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Http;
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MyRestaurantManagement</title>
+    <link href="~/lib/bootstrap5/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/fontawesome5/css/all.css" rel="stylesheet" />
+    <style>
+    </style>
+</head>
+<body>
+
+    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+        <symbol id="check" viewBox="0 0 16 16">
+            <title>Check</title>
+            <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z" />
+        </symbol>
+    </svg>
+
+    <div class="container py-3">
+        <header>
+            <div class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom">
+                <a href="/" class="d-flex align-items-center text-dark text-decoration-none">
+                    <img src="~/images/dome_food_icon.png" height="32" />
+                    <span class="fs-4">&nbsp; My Restaurant</span>
+                </a>
+
+                <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+                    <a class="me-3 py-2 text-dark text-decoration-none" href="~/#"><i class="fas fa-home"></i> Home</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" asp-controller="Customer" asp-action="Menu"><i class="fas fa-clipboard-list"></i> Menu</a>
+                    <a class="me-3 py-2 text-dark text-decoration-none" asp-controller="Admin" asp-action="Index"><i class="fas fa-user-cog"></i> Admin</a>
+                    <a class="py-2 text-dark text-decoration-none" asp-controller="Cart" asp-action="Index"><i class="fas fa-shopping-cart"></i> Cart (@MyRestaurantManagement.Helpers.Utility.CartCountValue(@HttpContextAccessor.HttpContext.Session.GetString(AppConstants.CurrentCartItemsCount)))</a>
+                </nav>
+            </div>
+
+        </header>
+
+        <main>
+            @RenderBody()
+        </main>
+
+        <footer class="mt-auto">
+            <p>Created by <a href="mailto:sandeepkumarray@outlook.com">Sandeep Ray</a>.</p>
+        </footer>
+    </div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap5/js/bootstrap.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/fontawesome5/js/all.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,39 @@
+﻿@model MyRestaurantManagement.Models.LoginModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LoginLayout.cshtml";
+}
+
+<form id="account" method="post" asp-action="Authenticate">
+    <img class="mb-4" src="~/images/dome_food_icon.png" alt="" width="72" height="57">
+    <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+    <div class="row g-3">
+
+        <div class="col-12">
+            <label for="username" class="form-label">Username</label>
+            <div class="input-group has-validation">
+                <span class="input-group-text"></span>
+                <input asp-for="Username" class="form-control" placeholder="Username" required="">                
+            </div>
+        </div>
+
+        <div class="col-12">
+            <label for="address" class="form-label">Password</label>
+            <input asp-for="Password" class="form-control" type="password" placeholder="Password" required="">           
+        </div>
+
+        <div class="col-md-5">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Sign In</button>
+        </div>
+
+        <div class="col-md-5">
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Register</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

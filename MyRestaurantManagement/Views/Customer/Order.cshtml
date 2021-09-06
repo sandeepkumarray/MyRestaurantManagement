@@ -1,0 +1,88 @@
+﻿@model MyRestaurantManagement.Models.CustomerOrderModel
+
+@{
+    ViewData["Title"] = "Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container-fluid my-5 d-flex justify-content-center">
+    <div class="card card-1">
+        <div class="card-header bg-white">
+            <div class="media flex-sm-row flex-column-reverse justify-content-between ">
+                <div class="col my-auto">
+                    <h4 class="mb-0">Thanks for your Order,<span class="change-color"> @Model.CustomerDetails.Firstname</span> !</h4>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row justify-content-between mb-3">
+                <div class="col-auto">
+                    <h6 class="color-1 mb-0 change-color">Receipt</h6>
+                    <div class="col-auto "> <small>Order reference : @Model.Id</small> </div>
+                </div>
+            </div>
+            @foreach (var order in Model.OrderItems)
+            {<div class="row mt-4">
+                    <div class="col">
+                        <div class="card card-2">
+                            <div class="card-body">
+                                <div class="media">
+                                    <div class="sq align-self-center ">
+
+                                    </div>
+                                    <div class="media-body my-auto text-right">                                       
+                                        <div class="row justify-content-between">
+                                            <div class="flex-sm-col text-right col">
+                                                <h6 class="mb-1">@order.ProductName</h6>
+                                            </div>
+                                            <div class="flex-sm-col col-auto">
+                                                <h6 class="mb-1">Quantity (@order.Quantity)</h6>
+                                            </div>
+                                            <div class="flex-sm-col col-auto">
+                                                <h6 class="mb-1">&#8377;@order.TotalAmount</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-3 ">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+
+
+            <div class="row mt-4">
+                <div class="col">
+                    <div class="row justify-content-between">
+                      
+                        <div class="flex-sm-col text-right col">
+                            <p class="mb-1"><b>Total</b></p>
+                        </div>
+                        <div class="flex-sm-col col-auto">
+                            <p class="mb-1">&#8377;@Model.Rate</p>
+                        </div>
+                    </div>    
+                </div>
+            </div>
+            <div class="row invoice ">
+                <div class="col">
+                    <p class="mb-1">Invoice Number : @Model.PaymentID</p>
+                    <p class="mb-1">Invoice Date : @Model.OrderCreationDate.ToString("dd MMM, yyyy")</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div class="jumbotron-fluid">
+                <div class="row justify-content-between ">                    
+                    <div class="col-auto my-auto ">
+                        <h2 class="mb-0 font-weight-bold">TOTAL PAID</h2>
+                    </div>
+                    <div class="col-auto my-auto ml-auto">
+                        <h1 class="display-3 ">&#8377; @Model.Rate</h1>
+                    </div>
+                </div>                
+            </div>
+        </div>
+    </div>
+</div>

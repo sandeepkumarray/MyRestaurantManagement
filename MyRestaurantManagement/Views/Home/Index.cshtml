@@ -1,0 +1,65 @@
+﻿@model MyRestaurantManagement.Models.RestaurantModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .hyperlink {
+        text-decoration: none;
+    }
+</style>
+<div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-4 fw-normal">Welcome</h1>
+    <p class="fs-5 text-muted">Order online from our various delicious foods.</p>
+</div>
+<h2 class="display-6 text-center mb-4"><a class="me-3 py-2 text-dark text-decoration-none" asp-controller="Customer" asp-action="Menu"> Order Online</a></h2>
+
+<div class="container px-4 py-5" id="custom-cards">
+    <h2 class="pb-2 border-bottom">Explore</h2>
+
+    <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+        <div class="col">
+            <a asp-controller="Customer" asp-action="Menu" class="hyperlink">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Our Menu</h2>
+                        <p class="fs-5 text-muted">Explore our range of delicious food, delivered to your location!</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="#" class="hyperlink">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Find Us</h2>
+                        <p class="fs-5 text-muted">Find our restaurant near you.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div class="col">
+            <a href="#" class="hyperlink">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Birthday Party</h2>
+                        <p class="fs-5 text-muted">Celebrate the joy of birthday with us.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="#" class="hyperlink">
+                <div class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg" style="background-image: url('unsplash-photo-3.jpg');">
+                    <div class="d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+                        <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Catering</h2>
+                        <p class="fs-5 text-muted">Live Kitchen for weddings / corporate events.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>

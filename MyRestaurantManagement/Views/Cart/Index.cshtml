@@ -1,0 +1,166 @@
+﻿@model MyRestaurantManagement.Models.CustomerOrderModel
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    input[type="number"] {
+        -webkit-appearance: textfield;
+        -moz-appearance: textfield;
+        appearance: textfield;
+    }
+
+
+    .number-input {
+        display: inline-flex;
+    }
+
+        .number-input,
+        .number-input * {
+            box-sizing: border-box;
+        }
+
+            .number-input button {
+                outline: none;
+                -webkit-appearance: none;
+                background-color: transparent;
+                border: none;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                margin: 0;
+                position: relative;
+            }
+
+            .number-input input[type=number] {
+                font-family: sans-serif;
+                max-width: 4rem;
+                padding: .5rem;
+                font-size: 1rem;
+                font-weight: bold;
+                text-align: center;
+            }
+</style>
+
+<div class="row justify-content-md-center h-100">
+    <div class="col-md-5">
+        <div class="d-flex flex-column align-items-stretch flex-shrink-0 bg-white" style="width: 380px;">
+            <a href="/" class="d-flex align-items-center flex-shrink-0 p-3 link-dark text-decoration-none border-bottom">
+                <span class="fs-5 fw-semibold">Your Cart</span>
+            </a>
+            <div class="list-group border-bottom scrollarea">
+                @foreach (var order in Model.OrderItems)
+                {
+                    <form method="post" asp-action="CartChange" enctype="application/x-www-form-urlencoded">
+                        <div class="d-flex justify-content-between align-items-center mt-3 p-2 items rounded">
+                            <div class="d-flex flex-row">
+                                <div class="ml-2">
+                                    <span class="font-weight-bold d-block">@order.ProductName</span>
+                                </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                                <div class="number-input gap-2">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><i class="fas fa-minus"></i></button>
+                                    <input readonly class="quantity" asp-for="@order.Quantity" min="0" max="10" step="1" name="quantity_" value="@order.Quantity" type="number">
+                                    <button onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><i class="fas fa-plus"></i></button>
+
+                                </div>
+                                <span class="d-block ml-5 font-weight-bold"><i class="fas fa-rupee-sign"></i>@order.TotalAmount</span>
+                                <a class="my-2" asp-controller="Cart" asp-action="Remove" asp-route-id="@order.ProductId"><i class="fas fa-trash ml-3 text-black-50"></i></a>
+                            </div>
+                            <input type="hidden" value="@order.ProductId" name="productId" />
+                        </div>
+
+                    </form>
+                }
+                <div class="d-flex justify-content-between information">
+                    <span>Total</span>
+                    <span><i class="fas fa-rupee-sign"></i>@Model.OrderItems.Sum(o => o.TotalAmount)</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="col-md-5 col-lg-4 order-md-last">
+        <form method="post" asp-action="Order" enctype="application/x-www-form-urlencoded">
+            <h4 class="d-flex justify-content-between align-items-center mb-3">
+                <span class="fs-5 fw-semibold">Customer Details</span>
+            </h4>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group" style="margin-bottom:10px">
+                        <label asp-for="@Model.CustomerDetails.Firstname" class="control-label"></label>
+                        <input asp-for="@Model.CustomerDetails.Firstname" class="form-control" />
+                        <span asp-validation-for="@Model.CustomerDetails.Firstname" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px">
+                        <label asp-for="@Model.CustomerDetails.Contact" class="control-label"></label>
+                        <input asp-for="@Model.CustomerDetails.Contact" class="form-control" />
+                        <span asp-validation-for="@Model.CustomerDetails.Contact" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px">
+                        <label asp-for="@Model.CustomerDetails.Address" class="control-label"></label>
+                        <input asp-for="@Model.CustomerDetails.Address" class="form-control" />
+                        <span asp-validation-for="@Model.CustomerDetails.Address" class="text-danger"></span>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="payment-info">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fs-5 fw-semibold">Card details</span>
+                            </div>
+                            <span class="type d-block mt-3 mb-1">Card type</span>
+                            <label class="radio"> <input type="radio" name="card" value="payment" checked> <span><img width="30" src="https://img.icons8.com/color/48/000000/mastercard.png" /></span> </label>
+                            <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/officel/48/000000/visa.png" /></span> </label>
+                            <label class="radio"> <input type="radio" name="card" value="payment"> <span><img width="30" src="https://img.icons8.com/ultraviolet/48/000000/amex.png" /></span> </label>                            
+                            <div>
+                                <label asp-for="@Model.CustomerDetails.NameOnCard" class="control-label"></label>
+                                <input asp-for="@Model.CustomerDetails.NameOnCard" class="form-control" />
+                                <span asp-validation-for="@Model.CustomerDetails.NameOnCard" class="text-danger"></span>
+                            </div>
+                            <div>
+                                <label asp-for="@Model.CustomerDetails.CardNumber" class="control-label"></label>
+                                <input asp-for="@Model.CustomerDetails.CardNumber" class="form-control" placeholder="0000 0000 0000 0000" />
+                                <span asp-validation-for="@Model.CustomerDetails.CardNumber" class="text-danger"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label">Expiration Date</label>
+                                    <div class="d-flex justify-content-between information">
+                                        <input asp-for="@Model.CustomerDetails.ExpiryMonth" class="form-control" placeholder="MM" style="width:80px" max="12" min="1" />
+                                        <span class="mt-2">/</span>
+                                        <input asp-for="@Model.CustomerDetails.ExpiryYear" class="form-control" placeholder="YY" style="width:80px" min="@Convert.ToInt32(DateTime.Now.ToString("yy"))" />
+                                    </div>
+                                    <span asp-validation-for="@Model.CustomerDetails.ExpiryMonth" class="text-danger"></span>
+                                    <span asp-validation-for="@Model.CustomerDetails.ExpiryYear" class="text-danger"></span>
+                                </div>
+                                <div class="col-md-6">
+                                    <label asp-for="@Model.CustomerDetails.CVV" class="control-label"></label>
+                                    <input asp-for="@Model.CustomerDetails.CVV" class="form-control" />
+                                    <span asp-validation-for="@Model.CustomerDetails.CVV" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr class="line">
+                            <div class="d-flex justify-content-between information">
+                                <span>Total</span><span><i class="fas fa-rupee-sign"></i>@Model.OrderItems.Sum(o => o.TotalAmount)</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="margin-bottom:10px">
+                        <input type="submit" value="Place Order" class="btn btn-primary" />
+                        <a class="btn btn-danger" asp-action="Cancel"> Cancel</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,1 +1,1 @@
-# MyRestaurantManagement
+# My Restaurant Management
